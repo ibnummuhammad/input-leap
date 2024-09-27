@@ -79,6 +79,10 @@ inevitably result in a delay in the issue being fixed!
 Please also see the IRC channels at the top of the README for other methods of
 support.
 
+### Build in Linux
+
+    ./clean_build.sh
+
 ### Contributions
 
 At this time we are looking for developers to help fix the issues found in the
