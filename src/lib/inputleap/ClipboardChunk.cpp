@@ -23,6 +23,7 @@
 #include "base/Log.h"
 #include "base/String.h"
 #include <cstring>
+#include <iostream>
 
 namespace inputleap {
 
@@ -31,6 +32,7 @@ size_t ClipboardChunk::s_expectedSize = 0;
 ClipboardChunk ClipboardChunk::start(ClipboardID id, std::uint32_t sequence,
                                      const std::size_t& size)
 {
+    std::cout << "masuk ClipboardChunk::start()" << std::endl;
     ClipboardChunk chunk;
     chunk.id_ = id;
     chunk.sequence_ = sequence;
