@@ -62,10 +62,18 @@ void copy_qsettings(const QSettings &src, QSettings &dst)
 
 int main(int argc, char* argv[])
 {
+    QStringList lala;
+    lala << "lala" << "lala2" << "lala3";
+    qDebug() << lala;
+
 #if (defined(WINAPI_XWINDOWS) || \
     (defined(HAVE_LIBPORTAL_INPUTCAPTURE) || \
     defined(HAVE_LIBPORTAL_SESSION_CONNECT_TO_EIS)))
     const auto platformType = QGuiApplication::platformName();
+
+    QStringList tata;
+	tata << platformType;
+    qDebug() << tata;
 
     if (platformType == "xcb") {
         // We're running on X11, all good.
@@ -114,6 +122,10 @@ int main(int argc, char* argv[])
 
 	int trayAvailable = waitForTray();
 
+    QStringList sasa;
+	sasa << QString::number(trayAvailable);
+    qDebug() << sasa;
+
 	QApplication::setQuitOnLastWindowClosed(false);
 
 	QSettings settings;
@@ -129,6 +141,10 @@ int main(int argc, char* argv[])
 	{
 		// force auto hide to false - otherwise there is no way to get the GUI back
 		fprintf(stdout, "System tray not available, force disabling auto hide!\n");
+
+		QStringList tara;
+		tara << "setAutoHide to false";
+		qDebug() << tara;
 		appConfig.setAutoHide(false);
 	}
 
@@ -139,10 +155,18 @@ int main(int argc, char* argv[])
 
 	if (appConfig.wizardShouldRun())
 	{
+		QStringList aza;
+		aza << "masuk setupWizard.show()";
+		qDebug() << aza;
+
 		setupWizard.show();
 	}
 	else
 	{
+		QStringList nasa;
+		nasa << "masuk mainWindow.open()";
+		qDebug() << nasa;
+
 		mainWindow.open();
 	}
     QObject::connect(&mainWindow, &MainWindow::requestLanguageChange, &app, &QInputLeapApplication::switchTranslator);
