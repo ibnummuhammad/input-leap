@@ -405,6 +405,7 @@ void ServerApp::cleanupServer()
 
 void ServerApp::handle_retry()
 {
+    LOG_DEBUG1("masuk ServerApp::handle_retry()");
     // discard old timer
     assert(m_timer != nullptr);
     stopRetryTimer();
@@ -881,6 +882,7 @@ ServerApp::startNode()
 {
     // start the server.  if this return false then we've failed and
     // we shouldn't retry.
+    LOG_DEBUG1("masuk ServerApp::startNode()");
     LOG_DEBUG1("starting server");
     if (!startServer()) {
         m_bye(kExitFailed);

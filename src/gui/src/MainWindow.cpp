@@ -224,12 +224,21 @@ void MainWindow::open()
     createTrayIcon();
 
     if (appConfig().getAutoHide()) {
+        QStringList masuk_if;
+        masuk_if << "masuk hide()";
+        qDebug() << masuk_if;
         hide();
     } else {
+        QStringList masuk_else;
+        masuk_else << "masuk showNormal()";
+        qDebug() << masuk_else;
         showNormal();
     }
 
     if (!appConfig().autoConfigPrompted()) {
+        QStringList malang;
+        malang << "masuk promptAutoConfig()";
+        qDebug() << malang;
         promptAutoConfig();
     }
 
@@ -238,6 +247,9 @@ void MainWindow::open()
     // confuses first time users, who think InputLeap has crashed).
     if (appConfig().startedBefore() && appConfig().getAutoStart()) {
         m_SuppressEmptyServerWarning = true;
+        QStringList bandung;
+        bandung << "masuk start_cmd_app()";
+        qDebug() << bandung;
         start_cmd_app();
         m_SuppressEmptyServerWarning = false;
     }
@@ -476,6 +488,9 @@ void MainWindow::checkConnected(const QString& line)
 
 void MainWindow::checkFingerprint(const QString& line)
 {
+    // QStringList jari;
+    // jari << "masuk checkFingerprint()";
+    // qDebug() << jari;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QRegularExpression fingerprintRegex("peer fingerprint \\(SHA1\\): ([A-F0-9:]+) \\(SHA256\\): ([A-F0-9:]+)$");
     QRegularExpressionMatch match = fingerprintRegex.match(line);
@@ -549,6 +564,9 @@ void MainWindow::checkFingerprint(const QString& line)
 
 void MainWindow::restart_cmd_app()
 {
+    QStringList ulang;
+    ulang << "masuk restart_cmd_app()";
+    qDebug() << ulang;
     stop_cmd_app();
     start_cmd_app();
 }
@@ -562,6 +580,9 @@ void MainWindow::proofreadInfo()
 
 void MainWindow::start_cmd_app()
 {
+    QStringList coman;
+    coman << "masuk start_cmd_app()";
+    qDebug() << coman;
     bool desktopMode = appConfig().processMode() == Desktop;
     bool serviceMode = appConfig().processMode() == Service;
 
