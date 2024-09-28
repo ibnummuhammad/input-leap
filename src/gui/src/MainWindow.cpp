@@ -246,7 +246,7 @@ void MainWindow::open()
     if (appConfig().startedBefore() && appConfig().getAutoStart()) {
         m_SuppressEmptyServerWarning = true;
         QStringList bandung;
-        bandung << "masuk start_cmd_app()";
+        bandung << "menuju start_cmd_app()";
         qDebug() << bandung;
         start_cmd_app();
         m_SuppressEmptyServerWarning = false;
@@ -327,6 +327,9 @@ void MainWindow::loadSettings()
 
 void MainWindow::initConnections()
 {
+    QStringList koneksi;
+    koneksi << "masuk initConnections()";
+    qDebug() << koneksi;
     connect(ui_->m_pActionMinimize, &QAction::triggered, this, &MainWindow::hide);
     connect(ui_->m_pComboServerList, &QComboBox::currentTextChanged, this, &MainWindow::comboServerList_currentIndexChanged);
     connect(ui_->m_pActionRestore, &QAction::triggered, this, &MainWindow::showNormal);
@@ -534,6 +537,9 @@ void MainWindow::checkFingerprint(const QString& line)
             db.add_trusted(fingerprint_sha256);
             db.write(db_path);
             if (is_client) {
+                QStringList dari_jari;
+                dari_jari << "menuju start_cmd_app() 1";
+                qDebug() << dari_jari;
                 start_cmd_app();
             }
         }
@@ -564,9 +570,16 @@ void MainWindow::start_cmd_app()
     coman << "masuk start_cmd_app()";
     qDebug() << coman;
     bool desktopMode = appConfig().processMode() == Desktop;
+    QStringList cek_desktop;
+    cek_desktop << (desktopMode ? "true" : "false");
+    qDebug() << cek_desktop;
     bool serviceMode = appConfig().processMode() == Service;
+    QStringList cek_service;
+    cek_service << (serviceMode ? "true" : "false");
+    qDebug() << cek_service;
 
     appendLogDebug("starting process");
+    appendLogDebug("mulai proses");
     m_ExpectedRunningState = kStarted;
     set_connection_state(AppConnectionState::CONNECTING);
 
@@ -605,6 +618,9 @@ void MainWindow::start_cmd_app()
 
 #ifndef Q_OS_LINUX
 
+    QStringList dari_linux;
+    dari_linux << "masuk linux";
+    qDebug() << dari_linux;
     if (m_ServerConfig.enableDragAndDrop()) {
         args << "--enable-drag-drop";
     }
@@ -640,6 +656,7 @@ void MainWindow::start_cmd_app()
     m_pLogWindow->startNewInstance();
 
     appendLogInfo("starting " + QString(app_role() == AppRole::Server ? "server" : "client"));
+    appendLogInfo("mulai layanan");
 
     qDebug() << args;
 
@@ -653,17 +670,30 @@ void MainWindow::start_cmd_app()
 
     if (desktopMode)
     {
+        QStringList if_mode;
+        if_mode << "masuk if desktop";
+        qDebug() << if_mode;
         cmd_app_process_->start(app, args);
+        qDebug() << cmd_app_process_;
         if (!cmd_app_process_->waitForStarted())
         {
+            QStringList tunggu;
+            tunggu << "menuju show()";
+            qDebug() << tunggu;
             show();
             QMessageBox::warning(this, tr("Program can not be started"), QString(tr("The executable<br><br>%1<br><br>could not be successfully started, although it does exist. Please check if you have sufficient permissions to run this program.").arg(app)));
             return;
         }
     }
+    QStringList if_desktop_keluar;
+    if_desktop_keluar << "keluar dari desktop";
+    qDebug() << if_desktop_keluar;
 
     if (serviceMode)
     {
+        QStringList if_service;
+        if_service << "masuk if service";
+        qDebug() << if_service;
         QString command(app + " " + args.join(" "));
         m_IpcClient.sendCommand(command, appConfig().elevateMode());
     }
@@ -873,6 +903,9 @@ void MainWindow::stopDesktop()
 
 void MainWindow::cmd_app_finished(int exitCode, QProcess::ExitStatus)
 {
+    QStringList selesai;
+    selesai << "masuk cmd_app_finished()";
+    qDebug() << selesai;
     if (exitCode == 0) {
         appendLogInfo(QString("process exited normally"));
     }
